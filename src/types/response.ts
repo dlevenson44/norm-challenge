@@ -15,9 +15,6 @@ export interface CheckNodeResponse {
   type: NodeType
   status: Status
   reason: string
-  children: SubCheckNodeResponse[] | []
-}
-
-interface SubCheckNodeResponse extends CheckNodeResponse {
-  system_message: string
+  children: CheckNodeResponse[] | []
+  system_message?: string
 }
