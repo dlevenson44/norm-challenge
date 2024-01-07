@@ -14,13 +14,14 @@ import { fetcher } from './helpers'
 import { FETCH_URL, REFRESH_INTERVAL } from './utils'
 
 function App() {
+ // NOTE:  while re-reviewing the code, I realized this could've been refactored into a custom hook
+ // Custom hook would allow us to make network requests without having to re-import `fetcher` helper everywhere
  const { data, error } = useSWR(
   FETCH_URL,
   fetcher,
   { refreshInterval: REFRESH_INTERVAL }
  )
 
- const isLoading = true
  const rootChildren = React.useMemo(() => data?.tree?.children, [data?.tree?.children])
 
  return (
