@@ -1,9 +1,3 @@
-Documentation:
-○ Briefly document your approach in a README.md, especially any assumptions made and your
-choice of libraries or frameworks.
-A short README.md document explaining your implementation with any necessary instructions for
-setting up and running the application.
-
 ### Dan Levenson NormAI Submission
 ###### Setup and Running Locally
 - Ensure you have NodeJs and Yarn installed on your machine
@@ -16,6 +10,8 @@ setting up and running the application.
 - SWR: SWR was used to leverage its built-in polling interval support.  SWR is generally preferable because it is fast and light-weight, it has a built-in cache, and it offers both SSR and SSG support
 
 ###### Implementation Notes
+- This application polls the provided API every 10 seconds to ensure we always have the most recent data from the endpoint.  I thought about using WebSockets here to keep the connection open and cut down on network calls made, but I wasn't certain if this was supported on the BE.
+  - This isn't to say websockets are or are not better than interval polling, it's just an idea I had while developing this and would be curious to see the difference in performance and UX between the two with this kind of response shape
 - Generally speaking, I built this app as if it were going to be a large scale project.  While this isn't a 1:1 example of what we would have, the general idea is we have a `components` directory for shared, reusable components, we have `helpers` for any common functions that can be used throughout the FE, and `utils` is like `helpers`, except for things like shared variables and configuration.
 - All data is fetched at the top level of the application, and props are passed directly to the child components.
   - Since prop-drilling was never an issue with this project, a global store like Redux or React Context was never considered.  We would want to consider using one of these libraries for larger applications where data fetching and component structure becomes more complex
