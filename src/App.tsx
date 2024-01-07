@@ -13,27 +13,27 @@ import { fetcher } from './helpers'
 import { FETCH_URL, REFRESH_INTERVAL } from './utils'
 
 function App() {
-	const { data, error, isLoading } = useSWR(
-		FETCH_URL,
-		fetcher,
-		{ refreshInterval: REFRESH_INTERVAL }
-	)
+ const { data, error, isLoading } = useSWR(
+  FETCH_URL,
+  fetcher,
+  { refreshInterval: REFRESH_INTERVAL }
+ )
 
-	const rootChildren = React.useMemo(() => data?.tree?.children, [data?.tree?.children])
+ const rootChildren = React.useMemo(() => data?.tree?.children, [data?.tree?.children])
 
-	return (
-		<Stack spacing={3} alignItems="center">
-			{!isLoading && !isEmpty(rootChildren) ?
-				map(rootChildren, (checkNode, idx) => (
-					<Card key={idx} raised sx={{ width: '75%', p: 2 }}>
-						<CheckNode {...checkNode} />
-					</Card>
-				)) : (
-					<Typography variant="h4">No Data to Render!</Typography>
-				)}
-			{!isLoading && error && <Typography variant="h4">Error Fetching Data!</Typography>}
-		</Stack>
-	)
+ return (
+  <Stack spacing={3} alignItems="center">
+   {!isLoading && !isEmpty(rootChildren) ?
+    map(rootChildren, (checkNode, idx) => (
+     <Card key={idx} raised sx={{ width: '75%', p: 2 }}>
+      <CheckNode {...checkNode} />
+     </Card>
+    )) : (
+     <Typography variant="h4">No Data to Render!</Typography>
+    )}
+   {!isLoading && error && <Typography variant="h4">Error Fetching Data!</Typography>}
+  </Stack>
+ )
 }
 
 export default App
