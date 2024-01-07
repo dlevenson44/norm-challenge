@@ -23,6 +23,7 @@ const CheckNode: React.FunctionComponent<CheckNodeResponse> = ({
 
 	return (
 		<Stack spacing={1}>
+			{/* Node Header and Status */}
 			<Stack>
 				<Stack direction="row" alignItems="center" justifyContent="space-between">
 					<Typography
@@ -37,13 +38,16 @@ const CheckNode: React.FunctionComponent<CheckNodeResponse> = ({
 					}
 				</Stack>
 			</Stack>
+			{/* Node messages */}
 			<Stack>
 				{system_message && <Typography variant="body2">{system_message}</Typography>}
 				<Typography variant="body2">{reason}</Typography>
 			</Stack>
+			{/* SubNodes */}
 			<Stack spacing={2}>
 				{showDetails && map(children, (subCheckNode, idx) => <CheckNode key={idx} {...subCheckNode} />)}
 			</Stack>
+			{/* Show/Hide Details Button */}
 			{!isSubCheck && !isEmpty(children) && 
         <Button onClick={() => setShowDetails(!showDetails)}>
           {showDetails ? 'Hide Details' : 'Show Details'}

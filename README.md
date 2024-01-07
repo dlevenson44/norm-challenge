@@ -1,46 +1,23 @@
-# Getting Started with Create React App
+Documentation:
+○ Briefly document your approach in a README.md, especially any assumptions made and your
+choice of libraries or frameworks.
+A short README.md document explaining your implementation with any necessary instructions for
+setting up and running the application.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Dan Levenson NormAI Submission
+###### Setup and Running Locally
+- Ensure you have NodeJs and Yarn installed on your machine
+- To run locally, clone repo, run `yarn install` from project root to install dependencies, then `yarn start` to run the application locally
+- Please note, by default we poll the API every 10 seconds.  You can update this value in `src/utils/constants.ts` on line 2.
 
-## Available Scripts
+###### Key Libraries Used
+- Material UI: MUI was used for their predesigned components and icons to speed up development process and give us a more clean UI out of the box
+- Lodash:  Lodash was used for their `map` function.  I prefer using Lodash's `map` over the native JS `map` because it works with a broader range of collections, whereas native `map` is limited to just arrays.  For this project we could have used the native `map`, but I'm treating this as though it will be a larger scale app
+- SWR: SWR was used to leverage its built-in polling interval support.  SWR is generally preferable because it is fast and light-weight, it has a built-in cache, and it offers both SSR and SSG support
 
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+###### Implementation Notes
+- Generally speaking, I built this app as if it were going to be a large scale project.  While this isn't a 1:1 example of what we would have, the general idea is we have a `components` directory for shared, reusable components, we have `helpers` for any common functions that can be used throughout the FE, and `utils` is like `helpers`, except for things like shared variables and configuration.
+- All data is fetched at the top level of the application, and props are passed directly to the child components.
+  - Since prop-drilling was never an issue with this project, a global store like Redux or React Context was never considered.  We would want to consider using one of these libraries for larger applications where data fetching and component structure becomes more complex
+- Re-reviewing the code, `CheckNode` component could probably be broken further into subcomponents.  This would be very beneficial for large scale applications to speed up development with re-usable UI code.
+- The linting and prettier config are not perfect, and I didn't add yarn scripts to run these.  It was important to me to have these tools working to create the application, but I wanted to be respectful of the 3 hour timelimit and didn't want to spend any more time on these configs.
