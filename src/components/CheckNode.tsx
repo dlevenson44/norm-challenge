@@ -2,8 +2,10 @@ import React from 'react'
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn'
+import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
+import isEmpty from 'lodash/isEmpty'
 import map from 'lodash/map'
 
 import type { CheckNodeResponse } from '../types'
@@ -16,7 +18,9 @@ const CheckNode: React.FunctionComponent<CheckNodeResponse> = ({
 	children,
 	system_message
 }) => {
-	const isSubCheck = type === 'sub_check_node'
+	const [showDetails, setShowDetails] = React.useState(true)
+	const isSubCheck = React.useMemo(() => type === 'sub_check_node', [type])
+
 	return (
 		<Stack spacing={1}>
 			<Stack>
@@ -38,8 +42,13 @@ const CheckNode: React.FunctionComponent<CheckNodeResponse> = ({
 				<Typography variant="body2">{reason}</Typography>
 			</Stack>
 			<Stack spacing={2}>
-				{map(children, (subCheckNode) => <CheckNode {...subCheckNode} />)}
+				{showDetails && map(children, (subCheckNode, idx) => <CheckNode key={idx} {...subCheckNode} />)}
 			</Stack>
+			{!isSubCheck && !isEmpty(children) && 
+        <Button onClick={() => setShowDetails(!showDetails)}>
+          {showDetails ? 'Hide Details' : 'Show Details'}
+        </Button>
+			}
 		</Stack>
 	)
 }
