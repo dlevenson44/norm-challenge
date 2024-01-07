@@ -10,6 +10,7 @@
 - SWR: SWR was used to leverage its built-in polling interval support.  SWR is generally preferable because it is fast and light-weight, it has a built-in cache, and it offers both SSR and SSG support
 
 ###### Implementation Notes
+- This application was created with Create-React-App for the sake of quick development.  If this were a Production application, I would have utliized NextJS.  This allows us to utilize SSR/SSG as needed, partially organize code based on Next Routing, and in addition to be very performant, I've found it can speed up developer experience in a team setting in my work experience with NextJS.
 - This application polls the provided API every 10 seconds to ensure we always have the most recent data from the endpoint.  I thought about using WebSockets here to keep the connection open and cut down on network calls made, but I wasn't certain if this was supported on the BE.
   - This isn't to say websockets are or are not better than interval polling, it's just an idea I had while developing this and would be curious to see the difference in performance and UX between the two with this kind of response shape
 - Generally speaking, I built this app as if it were going to be a large scale project.  While this isn't a 1:1 example of what we would have, the general idea is we have a `components` directory for shared, reusable components, we have `helpers` for any common functions that can be used throughout the FE, and `utils` is like `helpers`, except for things like shared variables and configuration.
